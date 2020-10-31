@@ -10,6 +10,7 @@
 
 # How to use ssb-creator
   Straightforward and to the point.
+  To install, just `git clone https://github.com/SaphiraKai/ssb-creator` and move `ssb-creator` into `/usr/bin`, or download the .zip and do the same.
 
   1. Use `sudo ssb-creator https://www.example.com # just example.com works too` to "install" a webapp
   2. Use `sudo ssb-creator remove example.com` to "uninstall" a webapp
