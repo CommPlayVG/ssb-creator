@@ -1,0 +1,86 @@
+#!/bin/bash
+# Tool to create Chromium-based site-specific browsers for
+# running webapps like local applications
+
+# Type the executable name of your Chromium-based browser here
+browser="brave-browser"
+
+app_url=$1
+
+if [[ $app_url = "" ]]
+then
+    read -p "App URL: " app_url
+
+elif [[ $app_url = "remove" ]]
+then
+    if [[ $2 = "" ]]
+    then
+        read -p "App name: " app_url
+
+    else
+        app_url=$2
+
+    fi
+
+    rm /usr/bin/$app_url /home/$SUDO_USER/.local/share/applications/$app_url.desktop /home/$SUDO_USER/.config/ssb-creator/favicons/$app_url.ico
+    if [[ $? = 0 ]]
+    then
+        echo "Removed $app_url"
+        exit 0
+
+    else
+        printf "\nUnable to remove $app_url\n"
+        exit 1
+
+    fi
+
+fi
+
+app_name=$(wget -qO- "$app_url" | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si' | recode html..)
+
+app_domain=$(echo "$app_url" | sed -e 's|^[^/]*//||' -e 's|/.*$||')
+if [[ $(echo $app_domain | head -c 4) = "www." ]]
+then
+    app_domain=$(echo $app_domain | cut -c 5-)
+fi
+
+if [[ $(echo $app_url | head -c 5) = "https" ]]
+then
+    echo "$browser --app=\"$app_url\"" > /usr/bin/$app_domain
+    chmod +x /usr/bin/$app_domain
+
+elif [[ $(echo $app_url | head -c 4) = "http" ]]
+then
+    echo "WARNING: Selected URL is not HTTPS. Your connection is susceptible to being intercepted!"
+    read -p "Allow SSB creation anyway? " accept_risk
+
+    if [[ $accept_risk = "y" ]]
+    then
+        echo "$browser --app=\"$app_url\"" > /usr/bin/$app_domain
+        chmod +x /usr/bin/$app_domain
+
+    elif [[ $accept_risk = "yes" ]]
+    then
+        echo "$browser --app=\"$app_url\"" > /usr/bin/$app_domain
+        chmod +x /usr/bin/$app_domain
+
+    else
+        echo "Canceled."
+        exit 0
+
+    fi
+
+else
+    echo ""
+    echo "Protocol not specified, Assuming HTTPS"
+    echo ""
+
+    echo "$browser --app=\"https://www.$app_url\"" > /usr/bin/$app_domain
+    chmod +x /usr/bin/$app_domain
+
+fi
+
+sudo -u $SUDO_USER mkdir -p /home/$SUDO_USER/.config/ssb-creator/favicons
+sudo -u $SUDO_USER wget "$app_url/favicon.ico" -O /home/$SUDO_USER/.config/ssb-creator/favicons/$app_domain.ico 2>/dev/null
+
+printf "[Desktop Entry]\nEncoding=UTF-8\nVersion=1.0\nType=Application\nTerminal=false\nExec=/usr/bin/$app_domain\nName=$app_name\nIcon=/home/$SUDO_USER/.config/ssb-creator/favicons/$app_domain.ico\n" > /home/$SUDO_USER/.local/share/applications/$app_domain.desktop
