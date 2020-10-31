@@ -8,12 +8,15 @@
   reason this is useful is that given the right setup, you can run webapps as if they were installed on your local drive, with slightly improved performance over a
   regular web browser. This tool aims to do as much of that work for you as possible!
 
-# How to use ssb-creator
-  Straightforward and to the point.
-  To install, just `git clone https://github.com/SaphiraKai/ssb-creator` and move `ssb-creator` into `/usr/bin`, or download the .zip and do the same.
+# Installation
+  `sudo apt install recode  #or equivalent for your distro
+  git clone https://github.com/SaphiraKai/ssb-creator
+  sudo chmod +x ssb-creator/ssb
+  sudo mv ssb-creator/ssb /usr/bin`
 
-  1. Use `sudo ssb-creator https://www.example.com # just example.com works too` to "install" a webapp
-  2. Use `sudo ssb-creator remove example.com` to "uninstall" a webapp
+# How to use ssb-creator
+  1. Use `sudo ssb https://www.example.com   #just example.com works too` to "install" a webapp
+  2. Use `sudo ssb remove example.com` to "uninstall" a webapp
 
 # NOTES:
   1. This tool is ONLY compatible with Chromium and Chromium-based browsers (Chrome, Edge, Vivaldi, Brave, etc)
