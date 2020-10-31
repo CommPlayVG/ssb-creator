@@ -3,7 +3,7 @@
 # running webapps like local applications
 
 # Type the executable name of your Chromium-based browser here
-browser="brave-browser"
+browser="chrome"
 
 app_url=$1
 
