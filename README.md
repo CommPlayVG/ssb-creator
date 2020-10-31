@@ -10,8 +10,11 @@
 
 # Installation
   `sudo apt install recode  #or equivalent for your distro`
+  
   `git clone https://github.com/SaphiraKai/ssb-creator`
+  
   `sudo chmod +x ssb-creator/ssb`
+  
   `sudo mv ssb-creator/ssb /usr/bin`
 
 # How to use ssb-creator
