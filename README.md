@@ -14,7 +14,7 @@
   `git clone https://github.com/SaphiraKai/ssb-creator`
   
   `nano ssb-creator/ssb`
-  Here, replace the `browser="chrome"` with your browser
+    Here, replace the `browser="chrome"` with your browser
   
   `sudo chmod +x ssb-creator/ssb`
   
