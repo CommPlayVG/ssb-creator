@@ -9,10 +9,10 @@
   regular web browser. This tool aims to do as much of that work for you as possible!
 
 # Installation
-  `sudo apt install recode  #or equivalent for your distro
-  git clone https://github.com/SaphiraKai/ssb-creator
-  sudo chmod +x ssb-creator/ssb
-  sudo mv ssb-creator/ssb /usr/bin`
+  `sudo apt install recode  #or equivalent for your distro`
+  `git clone https://github.com/SaphiraKai/ssb-creator`
+  `sudo chmod +x ssb-creator/ssb`
+  `sudo mv ssb-creator/ssb /usr/bin`
 
 # How to use ssb-creator
   1. Use `sudo ssb https://www.example.com   #just example.com works too` to "install" a webapp
